@@ -6,6 +6,8 @@ import os
 
 
 app = Flask(__name__)
+port = int(os.environ.get('PORT', 5000))
+
 
 dirname = os.path.dirname(__file__)
 df = pd.read_csv(os.path.join(dirname,'data/fulldf_example.csv'), index_col='place_id')
@@ -41,4 +43,4 @@ def results():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5957)
+    app.run(port=port)
