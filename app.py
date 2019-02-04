@@ -31,7 +31,7 @@ def results():
 		if len(predict_df) == 0:
 			response = 'Sorry, there is not enough data to predict the noise level at this location'
 		else:
-			prediction = model.predict(predict_df.reshape(-1, 1))[0]
+			prediction = model.predict(predict_df.reshape(1, -1))[0]
 			if prediction == 0:
 				response = 'Moderate'
 			if prediction == 1:
