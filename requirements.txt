@@ -1,5 +1,5 @@
 googlemaps 
-sklearn
+sklearn==0.18.1
 Flask==1.0.2
 pandas==0.24.0
 gunicorn==19.9.0
