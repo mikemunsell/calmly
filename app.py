@@ -32,13 +32,13 @@ def results():
 			prediction = model.predict(predict_df.values.reshape(1, -1))[0]
 			if prediction == 0:
 				response = 'Moderate'
-				x = 30	
+				x = "30"	
 			if prediction == 1:
 				response = 'Loud'
-				x = 60
+				x = "60"
 			if prediction == 2:
 				response = 'Very Loud'
-				x = 90
+				x = "90"
 		except:
 			response = 'Not enough data for prediction for this location'
 			x = 0
