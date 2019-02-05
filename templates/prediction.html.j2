@@ -4,9 +4,9 @@
 {% block body %}
 
 <p><b>The predicted noise level of {{name}} is:   {{responsetext}}<b></p>
-
 <div class="progress" style="width: 60%; margin: 60px;">
-		<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow={{progress}} aria-valuemin="0" aria-valuemax="100" style={{style}}>
+		<div class="progress-bar" role="progressbar" aria-valuenow={{progress}} aria-valuemin="0" aria-valuemax="100" style={{style}}>
+		{{responsetext}}
 		</div>
 </div>
 
