@@ -12,6 +12,7 @@ app = Flask(__name__)
 
 dirname = os.path.dirname(__file__)
 df = pd.read_csv(os.path.join(dirname,'data/fulldf_example.csv'), index_col='place_id')
+name_df = df['name']
 df = df.drop(labels = ['Unnamed: 0', 'name', 'zipcode', 'lat', 'lng', 'prim_type', 'noise_level', 'lograting_n', 'rating_n_x_pop'], axis = 1)
 df.fillna(value=0, inplace=True)
 model = pickle.load(open("model.pkl","rb"))
@@ -42,8 +43,8 @@ def results():
 			except:
 				response = 'Not enough data for prediction for this location'
 				x = 0
-			payload = {"data": x, "noise": response}
-		return Response(generate(), mimetype = 'text/event-stream') 
+			name = name_df.loc[str(check_id),:]
+		return render_template('prediction.html.j2', responsetext=response, progress = x, name=name) 
 
 
 
