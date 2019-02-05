@@ -33,7 +33,7 @@ def results():
 				response = 'Moderate'
 				x = 30	
 			if prediction == 1:
-				reponse = 'Loud'
+				response = 'Loud'
 				x = 60
 			if prediction == 2:
 				response = 'Very Loud'
@@ -41,7 +41,7 @@ def results():
 		except:
 			response = 'Not enough data for prediction for this location'
 			x = 0
-		payload = {"data": x, "noise": reponse}
+		payload = {"data": x, "noise": response}
 		return Response(jsonify(payload), mimetype= 'text/event-stream')
 
 
