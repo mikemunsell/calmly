@@ -41,7 +41,7 @@ def results():
 		except:
 			response = 'Not enough data for prediction for this location'
 			x = 0
-		payload = {"data": x, "noise:" reponse}
+		payload = {"data": x, "noise": reponse}
 		return Response(jsonify(payload), mimetype= 'text/event-stream')
 
 
