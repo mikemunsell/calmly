@@ -42,7 +42,7 @@ def results():
 		except:
 			response = 'Not enough data for prediction for this location'
 			x = 0
-		name = name_df.loc[str(check_id),:]
+		name = name_df.loc[str(check_id)]
 		return render_template('prediction.html.j2', responsetext=response, progress = x, name=name) 
 
 
