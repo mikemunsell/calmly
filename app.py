@@ -26,24 +26,23 @@ def index():
 @app.route('/predict', methods = ['GET', 'POST'])
 def results():
 	if request.method == 'POST':
-		def generate():
-			try:
-				check_id = request.form['placeid']
-				predict_df = df.loc[str(check_id),:]
-				prediction = model.predict(predict_df.values.reshape(1, -1))[0]
-				if prediction == 0:
-					response = 'Moderate'
-					x = 30	
-				if prediction == 1:
-					response = 'Loud'
-					x = 60
-				if prediction == 2:
-					response = 'Very Loud'
-					x = 90
-			except:
-				response = 'Not enough data for prediction for this location'
-				x = 0
-			name = name_df.loc[str(check_id),:]
+		try:
+			check_id = request.form['placeid']
+			predict_df = df.loc[str(check_id),:]
+			prediction = model.predict(predict_df.values.reshape(1, -1))[0]
+			if prediction == 0:
+				response = 'Moderate'
+				x = 30	
+			if prediction == 1:
+				response = 'Loud'
+				x = 60
+			if prediction == 2:
+				response = 'Very Loud'
+				x = 90
+		except:
+			response = 'Not enough data for prediction for this location'
+			x = 0
+		name = name_df.loc[str(check_id),:]
 		return render_template('prediction.html.j2', responsetext=response, progress = x, name=name) 
 
 
