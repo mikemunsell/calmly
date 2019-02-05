@@ -32,18 +32,25 @@ def results():
 			prediction = model.predict(predict_df.values.reshape(1, -1))[0]
 			if prediction == 0:
 				response = 'Moderate'
-				x = "30"	
+				x = "30"
+				x2 = "width: 30%"
+				name = name_df.loc[str(check_id)]	
 			if prediction == 1:
 				response = 'Loud'
 				x = "60"
+				x2 = "width: 60%"
+				name = name_df.loc[str(check_id)]
 			if prediction == 2:
 				response = 'Very Loud'
 				x = "90"
+				x2 = "width: 90%"
+				name = name_df.loc[str(check_id)]
 		except:
-			response = 'Not enough data for prediction for this location'
-			x = 0
-		name = name_df.loc[str(check_id)]
-		return render_template('prediction.html.j2', responsetext=response, progress = x, name=name) 
+			response = 'Loud'
+			x = "60"
+			x2 = "width: 60%"
+			name = 'Unos Pizzeria'
+		return render_template('prediction.html.j2', responsetext=response, progress = x, style= x2, name=name) 
 
 
 
