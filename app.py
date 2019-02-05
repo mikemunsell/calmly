@@ -1,4 +1,4 @@
-from flask import Flask, session, redirect, url_for, escape, request, render_template, jsonify
+from flask import Flask, request, render_template, jsonify, Response
 import requests
 import pandas as pd
 import pickle
@@ -22,24 +22,46 @@ def index():
 	key=API_KEY
 	return render_template('savedhtml.html.j2',key=key)
 
-
-
 @app.route('/predict', methods = ['GET', 'POST'])
 def results():
 	if request.method == 'POST':
-		check_id = request.form['placeid']
-		predict_df = df.loc[str(check_id),:]
-		if len(predict_df) == 0:
-			response = 'Sorry, there is not enough data to predict the noise level at this location'
-		else:
+		try:
+			check_id = request.form['placeid']
+			predict_df = df.loc[str(check_id),:]
 			prediction = model.predict(predict_df.values.reshape(1, -1))[0]
 			if prediction == 0:
 				response = 'Moderate'
+				x = 30	
 			if prediction == 1:
 				reponse = 'Loud'
+				x = 60
 			if prediction == 2:
 				response = 'Very Loud'
-		return render_template('prediction.html.j2', responsetext=response)
+				x = 90
+			except:
+				response = 'Not enough data for prediction for this location'
+				x = 0
+	payload = {"data": x, "noise:" reponse}
+	return Response(jsonify(payload), mimetype= 'text/event-stream')
+
+
+
+# @app.route('/predict', methods = ['GET', 'POST'])
+# def results():
+# 	if request.method == 'POST':
+# 		check_id = request.form['placeid']
+# 		predict_df = df.loc[str(check_id),:]
+# 		if len(predict_df) == 0:
+# 			response = 'Sorry, there is not enough data to predict the noise level at this location'
+# 		else:
+# 			prediction = model.predict(predict_df.values.reshape(1, -1))[0]
+# 			if prediction == 0:
+# 				response = 'Moderate'
+# 			if prediction == 1:
+# 				reponse = 'Loud'
+# 			if prediction == 2:
+# 				response = 'Very Loud'
+# 		return render_template('prediction.html.j2', responsetext=response)
 	
 
 
