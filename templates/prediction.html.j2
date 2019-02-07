@@ -3,12 +3,21 @@
 
 {% block body %}
 
-<p><b>The predicted noise level of {{name}} is:   {{responsetext}}<b></p>
+<div class="ui container">
+
+<table class="risk-level ui inverted grey table">
+      <thead><tr><th class="five wide">Location</th><th class="four wide">Predicted Noise Level</th><th class="four wide">Busiest time today</th></tr></thead>
+      <tr>
+      <td>{{name}}</td>
+      <td>{{responsetext}}</td>
+      <td>3 pm</td>
+      </tr>
+</table>
 
 
 
 <p><a href="https://calmlymap.herokuapp.com">Search a new location!</a></p>
-
+ </div>
 
 {% endblock %}    
 
