@@ -5,18 +5,18 @@
 
 <div class="ui container">
 
-<table class="risk-level ui inverted grey table">
-      <thead><tr><th class="five wide">Location</th><th class="four wide">Predicted Noise Level</th><th class="four wide">Busiest time today</th></tr></thead>
+
+<table class="noise-level ui inverted blue table">
+      <thead><tr><th class="five wide">Location</th><th class="four wide">Busiest time today</th><th class="four wide">Predicted Noise Level</th></tr></thead>
       <tr>
       <td>{{name}}</td>
-      <td>{{responsetext}}</td>
-      <td>3 pm</td>
+      <td>{{busytime}}</td>
+      <td>{{responsetext}}/td>
       </tr>
 </table>
 
 
-
-<p><a href="https://calmlymap.herokuapp.com">Search a new location!</a></p>
+<p style="font-size:160%;">><a href="https://calmlymap.herokuapp.com">Search a new location!</a></p>
  </div>
 
 {% endblock %}    

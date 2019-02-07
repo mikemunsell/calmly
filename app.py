@@ -31,26 +31,22 @@ def results():
 			predict_df = df.loc[str(check_id),:]
 			prediction = model.predict(predict_df.values.reshape(1, -1))[0]
 			if prediction == 0:
-				response = 'Moderate'
-				x = "30"
-				x2 = "width: 30%"
+				response = 'Moderate (Noisy, but manageable for conversation)'
 				name = name_df.loc[str(check_id)]	
+				x = '6 pm'
 			if prediction == 1:
-				response = 'Loud'
-				x = "60"
-				x2 = "width: 60%"
+				response = 'Loud (Potentially distracting/uncomfortable)'
 				name = name_df.loc[str(check_id)]
+				x = '7 pm'
 			if prediction == 2:
-				response = 'Very Loud'
-				x = "90"
-				x2 = "width: 90%"
+				response = 'Very Loud (Lilkely distracting/uncomfortable)'
 				name = name_df.loc[str(check_id)]
+				x = '7 pm'
 		except:
 			response = 'Loud'
-			x = "60"
-			x2 = "width: 60%"
+			x = '7pm'
 			name = 'Unos Pizzeria'
-		return render_template('prediction.html.j2', responsetext=response, progress = x, style= x2, name=name) 
+		return render_template('prediction.html.j2', responsetext=response, busytime = x, name=name) 
 
 
 
