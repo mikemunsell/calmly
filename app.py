@@ -43,7 +43,7 @@ def results():
 				name = name_df.loc[str(check_id)]
 				x = '7 pm'
 		except:
-			response = 'Loud'
+			response = 'Loud (Potentially distracting/uncomfortable)'
 			x = '7pm'
 			name = 'Unos Pizzeria'
 		return render_template('prediction.html.j2', responsetext=response, busytime = x, name=name) 

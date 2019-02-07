@@ -94,13 +94,14 @@
   <div class="ui container">
   <div class="header">
     <h1 class="ui header mylogo inverted">calmly</h1> 
+    <img src="face.png" alt="logo" />
     </div>
         <div class="ui transparent form"> <div class="ui transparent form" style="color:#81a5d3; font-size:125%; font-family: 'Comfortaa';">
             <div class="two fields">
 
               <form action="/predict" class="ui form" method="POST">
               <div class="field" >
-              <button class="ui button" id="analysis" onclick="javascript:document.forms[0].submit();" >Noise Prediction</button>
+              <button class="ui button" id="analysis" onclick="javascript:document.forms[0].submit();" >Run Noise Prediction</button>
               <input type="hidden" id='placeid_val' name='placeid'>
 
               </div>
