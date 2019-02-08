@@ -121,21 +121,12 @@
 
     <div id="infowindow-content">
       <span id="place-name"  class="title"></span><br>
-      Place ID <span id="place-id"></span><br>
       <span id="place-address"></span>
     </div>
    
 
 
     <script>
-      // This sample uses the Place Autocomplete widget to allow the user to search
-      // for and select a place. The sample then displays an info window containing
-      // the place ID and other information about the place that the user has
-      // selected.
-
-      // This example requires the Places library. Include the libraries=places
-      // parameter when you first load the API. For example:
-      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 
       function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -174,7 +165,6 @@
             map.setZoom(17);
           }
 
-          // Set the position of the marker using the place ID and location.
           marker.setPlace({
             placeId: place.place_id,
             location: place.geometry.location
@@ -183,7 +173,7 @@
 
 
           infowindowContent.children['place-name'].textContent = place.name;
-          infowindowContent.children['place-id'].textContent = place.place_id;
+        
           document.getElementById('placeid_val').value = place.place_id;
           infowindowContent.children['place-address'].textContent =
               place.formatted_address;
