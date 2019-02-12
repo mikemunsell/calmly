@@ -24,7 +24,7 @@ else:
 	df_day = day
 
 model = pickle.load(open("model_rf.pkl","rb"))
-API_KEY = ''
+API_KEY = 'AIzaSyAmzxG3BdFSxoQh61MypS_s2puE7Ud9MyU'
 
 @app.route('/', methods = ['GET', 'POST'])
 def index():
