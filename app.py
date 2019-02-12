@@ -54,7 +54,7 @@ def results():
 			response = 'No prediction available for this location'
 			x = ' '
 			name = request.form['placename']
-		return render_template('prediction.html.j2', responsetext=response, busytime = x, name=name) 
+		return render_template('prediction.html.j2', responsetext=response, busytime = x, name=name, key=key) 
 
 
 
