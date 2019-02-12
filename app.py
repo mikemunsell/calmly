@@ -4,6 +4,7 @@ import pandas as pd
 import pickle
 import os
 import numpy as np
+import datetime
 
 
 app = Flask(__name__)
@@ -11,11 +12,18 @@ app = Flask(__name__)
 
 
 dirname = os.path.dirname(__file__)
-df = pd.read_csv(os.path.join(dirname,'data/fulldf_example.csv'), index_col='place_id')
-name_df = df['name']
-df = df.drop(labels = ['Unnamed: 0', 'name', 'zipcode', 'lat', 'lng', 'prim_type', 'noise_level', 'lograting_n', 'rating_n_x_pop'], axis = 1)
+df = pd.read_csv(os.path.join(dirname,'data/BOS_app_data.csv'), index_col='id')
+df = df.drop(labels = ['Unnamed: 0', 'Unnamed: 0.1', 'name', 'zipcode', 'lat', 'lng', 'rating_n', 'prim_type'], axis = 1)
 df.fillna(value=0, inplace=True)
-model = pickle.load(open("model.pkl","rb"))
+
+name_df =  pd.read_csv(os.path.join(dirname,'data/max_times_forBOSTON.csv'), index_col='id')
+day = datetime.datetime.today().isoweekday()
+if day == 7:
+	df_day = 0
+else:
+	df_day = day
+
+model = pickle.load(open("model_rf.pkl","rb"))
 API_KEY = 'AIzaSyAmzxG3BdFSxoQh61MypS_s2puE7Ud9MyU'
 
 @app.route('/', methods = ['GET', 'POST'])
@@ -32,43 +40,26 @@ def results():
 			prediction = model.predict(predict_df.values.reshape(1, -1))[0]
 			if prediction == 0:
 				response = 'Moderate (Noisy, but manageable for conversation)'
-				name = name_df.loc[str(check_id)]	
-				x = '6 pm'
+				name = name_df.loc[str(check_id), 'name']	
+				x = name_df.loc[str(check_id), str(df_day)]
 			if prediction == 1:
 				response = 'Loud (Potentially distracting/uncomfortable)'
-				name = name_df.loc[str(check_id)]
-				x = '7 pm'
+				name = name_df.loc[str(check_id), 'name']
+				x = name_df.loc[str(check_id), str(df_day)]
 			if prediction == 2:
 				response = 'Very Loud (Lilkely distracting/uncomfortable)'
-				name = name_df.loc[str(check_id)]
-				x = '7 pm'
+				name = name_df.loc[str(check_id), 'name']
+				x = name_df.loc[str(check_id), str(df_day)]
 		except:
-			response = 'Loud (Potentially distracting/uncomfortable)'
-			x = '7pm'
-			name = 'Unos Pizzeria'
+			response = 'No prediction available for this location'
+			x = ' '
+			name = request.form['placename']
 		return render_template('prediction.html.j2', responsetext=response, busytime = x, name=name) 
 
 
 
-# @app.route('/predict', methods = ['GET', 'POST'])
-# def results():
-# 	if request.method == 'POST':
-# 		check_id = request.form['placeid']
-# 		predict_df = df.loc[str(check_id),:]
-# 		if len(predict_df) == 0:
-# 			response = 'Sorry, there is not enough data to predict the noise level at this location'
-# 		else:
-# 			prediction = model.predict(predict_df.values.reshape(1, -1))[0]
-# 			if prediction == 0:
-# 				response = 'Moderate'
-# 			if prediction == 1:
-# 				reponse = 'Loud'
-# 			if prediction == 2:
-# 				response = 'Very Loud'
-# 		return render_template('prediction.html.j2', responsetext=response)
-	
-
 
 if __name__ == "__main__":
-	port = int(os.environ.get('PORT', 5000))
-	app.run(host='0.0.0.0', port=port)
+	app.run(debug=True)
+	# port = int(os.environ.get('PORT', 5000))
+	# app.run(host='0.0.0.0', port=port)

@@ -102,7 +102,7 @@
               <div class="field" >
               <button class="ui button" id="analysis" onclick="javascript:document.forms[0].submit();" >Run Noise Prediction</button>
               <input type="hidden" id='placeid_val' name='placeid'>
-
+              <input type="hidden" id='placeid_name' name='placename'>
               </div>
 
               </form>                               
@@ -173,7 +173,7 @@
 
 
           infowindowContent.children['place-name'].textContent = place.name;
-        
+          document.getElementById('placeid_name').value = place.name;
           document.getElementById('placeid_val').value = place.place_id;
           infowindowContent.children['place-address'].textContent =
               place.formatted_address;
