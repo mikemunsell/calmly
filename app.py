@@ -33,6 +33,7 @@ def index():
 
 @app.route('/predict', methods = ['GET', 'POST'])
 def results():
+	key=API_KEY
 	if request.method == 'POST':
 		try:
 			check_id = request.form['placeid']
